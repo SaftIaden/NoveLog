@@ -1,0 +1,25 @@
+GET http://127.0.0.1:3000/images/1.jpg
+###
+GET http://127.0.0.1:3000/books/10
+###
+POST http://127.0.0.1:3000/
+Content-Type: application/json
+
+{
+  "image": "https://example.com/book-cover-10.jpg",
+      "title": "To Kill a Mockingbird",
+      "author": "Harper Lee",
+      "finished": true,
+      "genre": "Fiction",
+      "currentpage": 0,
+      "pages": 281,
+      "description": "To Kill a Mockingbird is a novel by Harper Lee that takes place in the 1930s and follows the story of a young girl named Scout as she learns about racism and injustice in her small town in Alabama. The novel explores themes of courage, empathy, and the importance of standing up for what is right."
+}
+###
+PATCH http://127.0.0.1:3000/books/10
+Content-Type: application/json
+
+{
+  "title": "To Safe a Mockingbird",
+  "currentpage": 281
+}
