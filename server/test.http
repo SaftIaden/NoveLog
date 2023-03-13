@@ -1,6 +1,6 @@
-GET http://127.0.0.1:3000/images/1.jpg
+GET http://127.0.0.1:3000/images/6.jpg
 ###
-GET http://127.0.0.1:3000/books/10
+GET http://127.0.0.1:3000/books
 ###
 POST http://127.0.0.1:3000/
 Content-Type: application/json

@@ -10,7 +10,7 @@ export const useBookStore = defineStore('bookStore', {
   },
   actions: {
     async fetchAllBooks() {
-      const { data } = await axios.get('http://127.0.0.1:3000/');
+      const { data } = await axios.get('http://127.0.0.1:3000/books');
       this.books = data;
     },
     async fetchBook(id) {
