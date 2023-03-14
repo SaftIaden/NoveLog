@@ -4,7 +4,7 @@
     <q-page-container>
       <q-page>
         <div class="q-ma-md row items-start q-gutter-md justify-center">
-          <q-card v-for="b in this.currentbooks" :key="b.id" flat bordered class="badge2 bg-info col-5 col-md-3" @click="cardClick(b.id)" v-ripple>
+          <q-card v-for="b in currentbooks" :key="b.id" flat bordered class="badge2 bg-info col-5 col-md-3" @click="cardClick(b.id)" v-ripple>
             <div class="flex flex-center q-mt-md"><q-rating :modelValue="b.rating" size="1em" color="dark" icon="fa-regular fa-star" icon-selected="fa-solid fa-star" /></div>
             <div class="flex flex-center q-mt-md">
               <q-img :src="b.image" style="width: 75%" />
@@ -33,7 +33,7 @@ import { ref, onMounted } from 'vue';
 import router from '../router';
 
 const bookStore = useBookStore();
-const currentbooks = [];
+const currentbooks = ref([]);
 const finishedLoading = ref(false);
 
 onMounted(async () => {
@@ -42,7 +42,7 @@ onMounted(async () => {
   for (let i = 0; i < bookStore.books.length; i++) {
     if (bookStore.books[i].read == true) {
       bookStore.books[i].rating = Math.round(bookStore.books[i].rating);
-      currentbooks.push(bookStore.books[i]);
+      currentbooks.value.push(bookStore.books[i]);
     }
   }
   finishedLoading.value = true;

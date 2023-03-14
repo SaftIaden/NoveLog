@@ -19,7 +19,7 @@
           </div>
         </div>
       </div>
-      <div class=" q-ma-s">
+      <div class="q-ma-s">
         <div class="row justify-evenly text-center">
           <div class="col-6">
             <q-input style="max-width: 180px" item-aligned v-model="genre" hint="Genre"
@@ -43,10 +43,11 @@
       </div></q-page-container
     >
     <q-page-sticky position="bottom" :offset="[0, 100]">
-      <div class="row justify-center">
-        <q-btn type="submit" color="info" class="btn q-mt-lg updateButton" rounded @click="updateBook(props.id)">
+      <div class="row justify-evenly q-gutter-sm">
+        <q-btn type="submit" color="info" class="btn" style="height: 5vh; width: 100%" rounded @click="updateBook(props.id)">
           <div style="color: black">Done</div>
         </q-btn>
+        <q-btn type="submit" color="dark" icon="fa-solid fa-trash-can" class="btn" rounded style="height: 5vh; width: 33%" @click="deleteBook(props.id)"> </q-btn>
       </div>
     </q-page-sticky>
     <q-page-sticky position="bottom" :offset="[18, 18]">
@@ -60,6 +61,7 @@ import Header from '../components/Header.vue';
 import axios from 'axios';
 import { useBookStore } from '../stores/bookstore';
 import { ref, onMounted } from 'vue';
+import router from '../router';
 
 const props = defineProps({
   id: String,
@@ -94,15 +96,10 @@ const updateBook = async (id) => {
     rating: ratingModel.value,
   });
 };
-</script>
-<style scoped>
-.updateButton {
-  width: 80vw;
-  height: 5vh;
 
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-</style>
+const deleteBook = async (id) => {
+  await axios.delete(`http://127.0.0.1:3000/books/${id}`);
+  router.push('/');
+};
+</script>
+<style scoped></style>

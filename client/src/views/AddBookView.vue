@@ -28,12 +28,12 @@
           <q-img :src="coverImage" style="border-radius: 20px" @click="(fullHeight = true), start()"> </q-img>
         </div>
         <div class="col-5">
-          <q-input item-aligned v-model="title" hint="Title"
+          <q-input item-aligned v-model="title" autogrow hint="Title"
             ><template v-slot:prepend>
               <q-icon name="fa-solid fa-pen-nib" />
             </template>
           </q-input>
-          <q-input item-aligned v-model="author" hint="Author">
+          <q-input item-aligned v-model="author" autogrow hint="Author">
             <template v-slot:prepend> <q-icon name="fa-solid fa-user-pen" /> </template>
           </q-input>
           <div class="q-mt-md">
@@ -44,17 +44,17 @@
           </div>
         </div>
       </div>
-      <div class="q-pa-sm q-ma-sm">
+      <div class="q-ma-sm">
         <div class="row justify-evenly text-center">
-          <div class="col-5">
-            <q-input style="max-width: 170px" item-aligned v-model="genre" hint="Genre"
+          <div class="col-6">
+            <q-input style="max-width: 180px" item-aligned v-model="genre" autogrow hint="Genre"
               ><template v-slot:prepend>
                 <q-icon name="fa-solid fa-compact-disc" />
               </template>
             </q-input>
           </div>
           <div class="col-5">
-            <q-input style="max-width: 170px" item-aligned v-model="currentPage" hint="Nr. of Pages" maxlength="4"
+            <q-input style="max-width: 170px" item-aligned v-model="allPages" hint="Nr. of Pages" maxlength="4"
               ><template v-slot:prepend>
                 <q-icon name="fa-solid fa-file" />
               </template>
@@ -64,9 +64,14 @@
       </div>
       <div class="q-pa-sm q-ma-sm">
         <span class="text-h5 block q-my-md"><b>Description</b></span>
-        <p class="q-mx-md">Description</p>
-      </div></q-page-container
-    >
+        <div class="" style="max-width: 80%px">
+          <q-input v-model="description" item-aligned autogrow hint="Description">
+            <template v-slot:prepend>
+              <q-icon name="fa-solid fa-paragraph" />
+            </template>
+          </q-input>
+        </div></div
+    ></q-page-container>
     <q-page-sticky position="bottom" :offset="[0, 100]">
       <div class="row justify-center">
         <q-btn type="submit" color="info" class="btn q-mt-lg postButton" rounded @click="postBook()">
@@ -91,10 +96,10 @@ const readOptions = [
   { id: true, desc: 'Finished' },
   { id: false, desc: 'in Progress' },
 ];
-const currentPage = ref();
 const allPages = ref();
 const genre = ref();
 const title = ref();
+const description = ref();
 const author = ref();
 const fullHeight = ref(false);
 const maximizedToggle = ref(true);
@@ -178,9 +183,9 @@ function gotDevices(deviceInfos) {
     if (deviceInfo.kind === 'videoinput') {
       availableCameras.push(deviceInfo.deviceId);
     } else {
-      console.log('Some other kind of source/device: ', deviceInfo);
+      // console.log('Some other kind of source/device: ', deviceInfo);
     }
-    console.log(availableCameras);
+    // console.log(availableCameras);
   }
 }
 
@@ -196,7 +201,16 @@ const changeCamera = () => {
 onMounted(async () => {});
 
 const postBook = async () => {
-  await axios.post(`http://127.0.0.1:3000/books`, {});
+  await axios.post('http://127.0.0.1:3000/books', {
+    title: title.value,
+    image: coverImage.value,
+    author: author.value,
+    rating: ratingModel.value,
+    read: readStatus.value,
+    genre: genre.value,
+    pages: allPages.value,
+    description: description.value,
+  });
 };
 </script>
 <style scoped>

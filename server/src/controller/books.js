@@ -1,4 +1,4 @@
-import { dbGetBooks, dbGetBook, dbPatchBook, dbPostBook } from '../models/books.js';
+import { dbGetBooks, dbGetBook, dbPatchBook, dbPostBook, dbDeleteBook } from '../models/books.js';
 
 const getBooks = async (req, res) => {
   const books = await dbGetBooks();
@@ -8,6 +8,12 @@ const getBooks = async (req, res) => {
 const getBook = async (req, res) => {
   const { id } = req.params;
   const book = await dbGetBook(id);
+  res.status(200).json(book);
+};
+
+const deleteBook = async (req, res) => {
+  const { id } = req.params;
+  const book = await dbDeleteBook(id);
   res.status(200).json(book);
 };
 
@@ -26,4 +32,4 @@ const postBook = async (req, res) => {
   return res.status(200).json(book);
 };
 
-export { getBooks, getBook, patchBook, postBook };
+export { getBooks, getBook, patchBook, postBook, deleteBook };
